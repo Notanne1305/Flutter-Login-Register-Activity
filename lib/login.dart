@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'register.dart';
+import 'landing.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,23 +13,97 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login(){
+  void _login() {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => LandingPage(),
+        builder: (context) => LandingPage(username: username, password: password),
       ),
-    ),
+    );
+  }
 
-    void _goToRegister(){
-      Navigator.push(context, MaterialPageRoute(
+    void _goToRegister() {
+    Navigator.push(context, MaterialPageRoute(
         builder: (context) => RegisterPage(),
-        ),
       ),
-    }
+    );
   }
+
+
   Widget build(BuildContext context) {
-    finalButtonStyle buttonStyle = ElevatedButton(onPressed: onPressed, child: child)
+    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      minimumSize: const Size.fromHeight(50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      textStyle: const TextStyle( 
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sindo Activity 6'),
+        centerTitle: true,
+        backgroundColor: Colors.lightBlue,
+        foregroundColor: Colors.white,
+      ),
+
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+                hintText: 'Enter your username',
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all( Radius.circular(12.0)),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+            TextField(
+              controller: _passwordController,
+              
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                hintText: 'Enter your password',
+                prefixIcon: Icon(Icons.lock),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all( Radius.circular(12.0)),
+                ), 
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 30),
+
+            ElevatedButton(onPressed: _login, style:buttonStyle.copyWith(
+              backgroundColor: WidgetStateProperty.all(Colors.blue),
+              foregroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+            child: const Text('Login'),
+            
+            ),  
+            const SizedBox(height: 30),
+            ElevatedButton(onPressed: _goToRegister, style: buttonStyle.copyWith(
+                backgroundColor: WidgetStateProperty.all(Colors.blue),
+                foregroundColor: WidgetStateProperty.all(Colors.white),
+                side: WidgetStateProperty.all(const BorderSide(color: Colors.blue, width: 2),
+                ),
+              ),
+              child: const Text('Register'),
+            ),
+          ],
+          )
+        )
+      ),
+    );
   }
-}
+  }
