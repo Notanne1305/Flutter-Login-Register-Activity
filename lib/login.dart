@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sindo Activity 6'),
+        title: const Text('Sindo - Login & Register'),
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
